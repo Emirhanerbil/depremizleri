@@ -1,5 +1,5 @@
 import 'package:depremizleri/home.dart';
-import 'package:depremizleri/landing.dart';
+import 'package:depremizleri/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: Home(),
+      home: ProfilePage(),
     );
   }
 }

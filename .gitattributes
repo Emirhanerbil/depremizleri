@@ -1,2 +1,4 @@
 * linguist-vendored
 *.dart linguist-vendored=false
+*.swift linguist-vendored=false
+*.other linguist-vendored=false

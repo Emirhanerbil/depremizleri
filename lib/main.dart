@@ -1,5 +1,6 @@
 import 'package:depremizleri/home.dart';
 import 'package:depremizleri/myTextPage.dart';
+import 'package:depremizleri/newPostPage.dart';
 import 'package:depremizleri/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: myTextPage(),
+      home: newPostPage(),
     );
   }
 }

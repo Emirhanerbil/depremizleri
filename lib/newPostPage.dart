@@ -34,7 +34,7 @@ class _newPostPageState extends State<newPostPage> {
                 children: [
                   SvgPicture.asset("assets/images/shapeLeftTop.svg"),
                   Container(
-                    margin: EdgeInsets.only(top: 60),
+                    margin: EdgeInsets.only(top: 60, bottom: 60),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -56,6 +56,31 @@ class _newPostPageState extends State<newPostPage> {
                 color: Colors.white,
                 child:
                     TextField(decoration: InputDecoration(hintText: "Başlık")),
+              ),
+              Container(
+                height: 100,
+                padding: EdgeInsets.only(left: 20),
+                color: Colors.white,
+                child: TextField(
+                  expands: true,
+                  maxLines: null,
+                  minLines: null,
+                  decoration: InputDecoration(
+                      hintText: "İçerik", border: InputBorder.none),
+                ),
+              ),
+              Container(
+                height: 50,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(Icons.camera_alt_outlined),
+                    Icon(Icons.camera_indoor_rounded),
+                    Icon(Icons.text_format_sharp),
+                    Icon(Icons.emoji_emotions_outlined)
+                  ],
+                ),
               )
             ],
           ),

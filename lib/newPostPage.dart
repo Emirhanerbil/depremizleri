@@ -17,15 +17,52 @@ class _newPostPageState extends State<newPostPage> {
           height: 57,
           selectedIndex: 3,
           destinations: [
-            Icon(Icons.text_snippet, color: Colors.white),
-            Icon(Icons.add),
+            Icon(Icons.text_snippet),
+            Icon(Icons.add, color: Colors.white),
             Icon(Icons.home),
             Icon(Icons.person)
           ],
           backgroundColor: Color(0XFFFF969C)),
       key: scaffoldKey,
       backgroundColor: Color(0XFFE3E7DF),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(height: 60),
+          ListTile(
+              leading:
+                  CircleAvatar(child: Image.asset("assets/images/profile.png")),
+              title: Text("Ezgi Güney")),
+          ListTile(
+              leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.text_snippet, color: Colors.black)),
+              title: Text("Yazılarım")),
+          ListTile(
+              leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.reply, color: Colors.black)),
+              title: Text("Cevaplarım")),
+          ListTile(
+              leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.thumb_up, color: Colors.black)),
+              title: Text("Beğendiklerim")),
+          ListTile(
+              leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.settings, color: Colors.black)),
+              title: Text("Ayarlar")),
+          Container(
+            height: 400,
+            alignment: Alignment.bottomCenter,
+            child: ListTile(
+                leading: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.logout, color: Colors.black)),
+                title: Text("Çıkış Yap")),
+          )
+        ]),
+      ),
       body: Column(
         children: [
           Column(

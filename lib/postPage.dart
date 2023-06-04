@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -126,11 +127,8 @@ class _PostPageState extends State<PostPage> {
                             margin:
                                 EdgeInsets.only(right: 15, left: 15, top: 5),
                             child: Text(
-                              "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-                              style: TextStyle(
-                                  fontFamily: "Poppings",
-                                  fontWeight: FontWeight.w400),
-                            ),
+                                "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+                                style: GoogleFonts.poppins()),
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -186,7 +184,7 @@ class _PostPageState extends State<PostPage> {
                         child: Text(
                           "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
                           style: TextStyle(
-                              fontFamily: "Poppings",
+                              fontFamily: "RobotoMono",
                               fontWeight: FontWeight.w400),
                         ),
                       ),

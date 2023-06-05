@@ -19,16 +19,19 @@ class _myTextPageState extends State<myTextPage> {
             destinations: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/text");
+                    Navigator.pushNamed(
+                      context,
+                      "/text",
+                    );
                   },
-                  icon: Icon(Icons.text_snippet)),
+                  icon: Icon(Icons.text_snippet, color: Colors.white)),
               IconButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/newPost");
                   },
                   icon: Icon(Icons.add)),
               IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
+                icon: Icon(Icons.home),
                 onPressed: () {
                   Navigator.pushNamed(context, "/home");
                 },

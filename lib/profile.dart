@@ -29,13 +29,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   icon: Icon(Icons.add)),
               IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
+                icon: Icon(Icons.home),
                 onPressed: () {
                   Navigator.pushNamed(context, "/home");
                 },
               ),
               IconButton(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person, color: Colors.white),
                 onPressed: () {
                   Navigator.pushNamed(context, "/profile");
                 },

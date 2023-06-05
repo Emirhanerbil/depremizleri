@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PostPage extends StatefulWidget {
-  const PostPage({super.key});
-
-  @override
-  State<PostPage> createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
+class PostPage extends StatelessWidget {
+  PostPage({super.key, required this.post});
+  final User post;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +103,7 @@ class _PostPageState extends State<PostPage> {
                           icon: Icon(Icons.menu)),
                       Container(
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          child: mainText("Post Title")),
+                          child: mainText(post.title)),
                       IconButton(
                           onPressed: () {}, icon: Icon(Icons.notifications))
                     ],
@@ -128,7 +124,7 @@ class _PostPageState extends State<PostPage> {
                           radius: 20,
                           child: Image.asset("assets/images/profile.png")),
                       SizedBox(width: 20),
-                      titles("Ezgi Güney", 16),
+                      titles(post.title, 16),
                     ],
                   ),
                 ),
@@ -152,8 +148,7 @@ class _PostPageState extends State<PostPage> {
                           Container(
                             margin:
                                 EdgeInsets.only(right: 15, left: 15, top: 5),
-                            child: Text(
-                                "Jorem ipsum dolor ur m dolor ur m dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+                            child: Text(post.content,
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.normal)),
                           ),
@@ -229,9 +224,9 @@ class _PostPageState extends State<PostPage> {
                       hintText: "Yorum Yaz", border: InputBorder.none),
                   onSubmitted: (value) {
                     var post = new User(
-                        "1", "Emirhan", "Erbil", "Başlık", "İçerik", value);
+                        "1", "Emirhan", "Erbil", "Başlık", "İçerik", [value]);
 
-                    print(post.comment);
+                    print(post.comments);
                   },
                 ),
               ),

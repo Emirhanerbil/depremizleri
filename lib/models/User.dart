@@ -4,8 +4,8 @@ class User {
   final String surname;
   final String title;
   final String content;
-  final String comment;
+  final List<String> comments;
 
-  User(
-      this.id, this.name, this.surname, this.title, this.content, this.comment);
+  User(this.id, this.name, this.surname, this.title, this.content,
+      this.comments);
 }

@@ -1,5 +1,11 @@
+import 'package:depremizleri/newPostPage.dart';
+import 'package:depremizleri/postPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'models/User.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,10 +16,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Ogrenciler> tumOgrenciler = List.generate(
-      500,
-      (index) =>
-          Ogrenciler(index, "isim: ${index + 1}", "soyisim: ${index + 1}"));
+  List<User> users = [
+    User("1", "Ezgi", "Güneş", "Örnek Başlık", "Örnek İçerik", ["comment"])
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +120,14 @@ class _HomeState extends State<Home> {
                             margin: EdgeInsets.only(right: 30, left: 30),
                             child: mainText("Ana Sayfa")),
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.notifications))
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          newPostPage(addPost: addPost)));
+                            },
+                            icon: Icon(Icons.add))
                       ],
                     ),
                   )
@@ -149,63 +161,82 @@ class _HomeState extends State<Home> {
             ],
           ),
           Expanded(
-            child: ListView(
-              children: [
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    height: 1,
+                    color: Colors.black38,
+                  );
+                },
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  final post = users[index];
+                  return GestureDetector(
+                    onTap: () {
+                      navigateToPostDetails(post);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 10, top: 10),
+                      decoration: BoxDecoration(color: Colors.white),
+                      child: Container(
+                        margin: EdgeInsets.only(left: 20, right: 20),
+                        child: Column(
                           children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  users[index].title,
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                Icon(Icons.arrow_right_sharp)
+                              ],
                             ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
-                              ),
+                            Row(
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width - 100,
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    users[index].content,
+                                    style: TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 15),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      child: Image.asset(
+                                          "assets/images/profile.png"),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(users[index].name +
+                                        " " +
+                                        users[index].surname),
+                                  ],
+                                ),
+                                FaIcon(FontAwesomeIcons.solidHeart),
+                              ],
                             )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.png"),
-                                ),
-                                SizedBox(width: 10),
-                                Text("Ezgi Güney"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  );
+                }),
           ),
         ],
       ),
@@ -241,6 +272,21 @@ class _HomeState extends State<Home> {
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
+  }
+
+  void addPost(User user) {
+    setState(() {
+      users.add(user);
+    });
+  }
+
+  void navigateToPostDetails(User post) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PostPage(post: post),
+      ),
+    );
   }
 }
 

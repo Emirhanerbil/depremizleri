@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class newPostPage extends StatefulWidget {
-  const newPostPage({super.key});
+import 'models/User.dart';
 
-  @override
-  State<newPostPage> createState() => _newPostPageState();
-}
-
-class _newPostPageState extends State<newPostPage> {
+class newPostPage extends StatelessWidget {
+  final Function(User) addPost;
+  newPostPage({super.key, required this.addPost});
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +27,9 @@ class _newPostPageState extends State<newPostPage> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/newPost");
                 },
-                icon: Icon(Icons.add)),
+                icon: Icon(Icons.add, color: Colors.white)),
             IconButton(
-              icon: Icon(Icons.home, color: Colors.white),
+              icon: Icon(Icons.home),
               onPressed: () {
                 Navigator.pushNamed(context, "/home");
               },
@@ -117,14 +118,17 @@ class _newPostPageState extends State<newPostPage> {
               Container(
                 padding: EdgeInsets.only(left: 20),
                 color: Colors.white,
-                child:
-                    TextField(decoration: InputDecoration(hintText: "Başlık")),
+                child: TextField(
+                  decoration: InputDecoration(hintText: "Başlık"),
+                  controller: titleController,
+                ),
               ),
               Container(
                 height: 100,
                 padding: EdgeInsets.only(left: 20),
                 color: Colors.white,
                 child: TextField(
+                  controller: contentController,
                   expands: true,
                   maxLines: null,
                   minLines: null,
@@ -141,7 +145,19 @@ class _newPostPageState extends State<newPostPage> {
                     Icon(Icons.camera_alt_outlined),
                     Icon(Icons.camera_indoor_rounded),
                     Icon(Icons.text_format_sharp),
-                    Icon(Icons.emoji_emotions_outlined)
+                    IconButton(
+                      icon: Icon(Icons.save_alt),
+                      onPressed: () {
+                        String isim = "Ezgi";
+                        String soyisim = "Güney";
+                        String title = titleController.text;
+                        String content = contentController.text;
+                        User user = User(
+                            "1", isim, soyisim, title, content, ["comment"]);
+                        addPost(user);
+                        Navigator.pop(context);
+                      },
+                    )
                   ],
                 ),
               )

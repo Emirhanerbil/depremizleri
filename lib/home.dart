@@ -27,21 +27,31 @@ class _HomeState extends State<Home> {
             Icon(Icons.home, color: Colors.white),
             Icon(Icons.person)
           ],
-          backgroundColor: Color(0XFFFF969C)),
+          backgroundColor: Color(0XFFE3E7DF)),
       key: scaffoldKey,
       backgroundColor: Color(0XFFE3E7DF),
       drawer: Drawer(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(height: 60),
-          ListTile(
-              leading:
-                  CircleAvatar(child: Image.asset("assets/images/profile.png")),
-              title: Text("Ezgi Güney")),
-          ListTile(
-              leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.text_snippet, color: Colors.black)),
-              title: Text("Yazılarım")),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/profile");
+            },
+            child: ListTile(
+                leading: CircleAvatar(
+                    child: Image.asset("assets/images/profile.png")),
+                title: Text("Ezgi Güney")),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/text");
+            },
+            child: ListTile(
+                leading: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.text_snippet, color: Colors.black)),
+                title: Text("Yazılarım")),
+          ),
           ListTile(
               leading: IconButton(
                   onPressed: () {},
@@ -112,9 +122,9 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    categoryContainer("Bugün"),
-                    categoryContainer("Beğendiklerim"),
-                    categoryContainer("Yazılarım"),
+                    categoryContainer("Bugün", Color(0XFFFF969C)),
+                    categoryContainer("Beğendiklerim", Colors.white),
+                    categoryContainer("Yazılarım", Colors.white),
                   ],
                 ),
               ),
@@ -163,9 +173,10 @@ class _HomeState extends State<Home> {
                               children: [
                                 CircleAvatar(
                                   child:
-                                      Image.asset("assets/images/profile.jpg"),
+                                      Image.asset("assets/images/profile.png"),
                                 ),
-                                Text("Profil İsmi"),
+                                SizedBox(width: 10),
+                                Text("Ezgi Güney"),
                               ],
                             ),
                             Icon(Icons.heart_broken_rounded),
@@ -183,13 +194,12 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container categoryContainer(String text) {
+  Container categoryContainer(String text, Color color) {
     return Container(
       alignment: Alignment.center,
       height: 25,
       width: 95,
-      decoration:
-          const BoxDecoration(shape: BoxShape.rectangle, color: Colors.white),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: color),
       child: Text(
         text,
         style: const TextStyle(

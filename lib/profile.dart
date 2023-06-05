@@ -15,15 +15,33 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         key: scaffoldKey,
         bottomNavigationBar: NavigationBar(
-          height: 57,
-          selectedIndex: 3,
-          destinations: [
-            Icon(Icons.text_snippet),
-            Icon(Icons.add),
-            Icon(Icons.home),
-            Icon(Icons.person, color: Colors.white)
-          ],
-        ),
+            height: 57,
+            selectedIndex: 3,
+            destinations: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/text");
+                  },
+                  icon: Icon(Icons.text_snippet)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/newPost");
+                  },
+                  icon: Icon(Icons.add)),
+              IconButton(
+                icon: Icon(Icons.home, color: Colors.white),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/home");
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/profile");
+                },
+              )
+            ],
+            backgroundColor: Color(0XFFE3E7DF)),
         backgroundColor: Color(0XFFE3E7DF),
         drawer: Drawer(
           child:

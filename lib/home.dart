@@ -22,10 +22,28 @@ class _HomeState extends State<Home> {
           height: 57,
           selectedIndex: 3,
           destinations: [
-            Icon(Icons.text_snippet),
-            Icon(Icons.add),
-            Icon(Icons.home, color: Colors.white),
-            Icon(Icons.person)
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/text");
+                },
+                icon: Icon(Icons.text_snippet)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/newPost");
+                },
+                icon: Icon(Icons.add)),
+            IconButton(
+              icon: Icon(Icons.home, color: Colors.white),
+              onPressed: () {
+                Navigator.pushNamed(context, "/home");
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.pushNamed(context, "/profile");
+              },
+            )
           ],
           backgroundColor: Color(0XFFE3E7DF)),
       key: scaffoldKey,

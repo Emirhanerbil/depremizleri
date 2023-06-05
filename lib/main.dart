@@ -16,9 +16,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        "/": (context) => landing(),
+        "/home": (context) => Home(),
+        "/post": (context) => PostPage(),
+        "/profile": (context) => ProfilePage(),
+        "/text": (context) => myTextPage(),
+        "/newPost": (context) => newPostPage()
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: PostPage(),
     );
   }
 }

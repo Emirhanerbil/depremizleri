@@ -28,15 +28,25 @@ class _newPostPageState extends State<newPostPage> {
       drawer: Drawer(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(height: 60),
-          ListTile(
-              leading:
-                  CircleAvatar(child: Image.asset("assets/images/profile.png")),
-              title: Text("Ezgi Güney")),
-          ListTile(
-              leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.text_snippet, color: Colors.black)),
-              title: Text("Yazılarım")),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/profile");
+            },
+            child: ListTile(
+                leading: CircleAvatar(
+                    child: Image.asset("assets/images/profile.png")),
+                title: Text("Ezgi Güney")),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/text");
+            },
+            child: ListTile(
+                leading: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.text_snippet, color: Colors.black)),
+                title: Text("Yazılarım")),
+          ),
           ListTile(
               leading: IconButton(
                   onPressed: () {},

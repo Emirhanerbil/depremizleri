@@ -1,3 +1,4 @@
+import 'package:depremizleri/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,15 +31,25 @@ class _PostPageState extends State<PostPage> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(height: 60),
-            ListTile(
-                leading: CircleAvatar(
-                    child: Image.asset("assets/images/profile.png")),
-                title: Text("Ezgi Güney")),
-            ListTile(
-                leading: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.text_snippet, color: Colors.black)),
-                title: Text("Yazılarım")),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/profile");
+              },
+              child: ListTile(
+                  leading: CircleAvatar(
+                      child: Image.asset("assets/images/profile.png")),
+                  title: Text("Ezgi Güney")),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/text");
+              },
+              child: ListTile(
+                  leading: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.text_snippet, color: Colors.black)),
+                  title: Text("Yazılarım")),
+            ),
             ListTile(
                 leading: IconButton(
                     onPressed: () {},
@@ -123,12 +134,12 @@ class _PostPageState extends State<PostPage> {
                       Stack(
                         children: [
                           Container(
-                            height: 100,
                             margin:
                                 EdgeInsets.only(right: 15, left: 15, top: 5),
                             child: Text(
-                                "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
-                                style: GoogleFonts.poppins()),
+                                "Jorem ipsum dolor ur m dolor ur m dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.normal)),
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -179,10 +190,11 @@ class _PostPageState extends State<PostPage> {
                     Container(
                       color: Color(0xffEAE7E7),
                       child: Container(
-                        height: 100,
+                        color: Color(0xffEAE7E7),
+                        padding: EdgeInsets.only(bottom: 20),
                         margin: EdgeInsets.only(right: 15, left: 15, top: 5),
                         child: Text(
-                          "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.",
+                          "Jorem ipsum dolor ur adipiscing elit. Nunc vulputate libero et velit interduelit interdumm, ac aliquet odio mattis.",
                           style: TextStyle(
                               fontFamily: "RobotoMono",
                               fontWeight: FontWeight.w400),
@@ -190,10 +202,25 @@ class _PostPageState extends State<PostPage> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
+            ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: ListTile(
+                title: TextField(
+                  decoration: InputDecoration(
+                      hintText: "Yorum Yaz", border: InputBorder.none),
+                  onSubmitted: (value) {
+                    var post = new User(
+                        "1", "Emirhan", "Erbil", "Başlık", "İçerik", value);
+
+                    print(post.comment);
+                  },
+                ),
+              ),
             )
-          ])
+          ]),
         ]));
   }
 

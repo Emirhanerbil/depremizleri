@@ -143,12 +143,16 @@ class _SearchState extends State<Search> {
             child: ListView.separated(
               itemCount: widget.users.length,
               separatorBuilder: (context, index) {
-                return Container(
-                  margin:
-                      EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
-                  height: 1,
-                  color: Colors.black38,
-                );
+                if (widget.users[index].content.contains(widget.arama)) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                        left: 30, right: 30, bottom: 10, top: 10),
+                    height: 1,
+                    color: Colors.black38,
+                  );
+                } else {
+                  return Container();
+                }
               },
               itemBuilder: (context, index) {
                 if (widget.users[index].content.contains(widget.arama)) {
@@ -207,9 +211,8 @@ class _SearchState extends State<Search> {
                     ),
                   );
                 } else {
-                  return Container(
-                    height: 100,
-                    color: Colors.white,
+                  return Stack(
+                    children: [Container()],
                   );
                 }
               },

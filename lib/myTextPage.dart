@@ -161,9 +161,7 @@ class myTextPage extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 User user = users[index];
-                if (!users[index].content.contains(arama)) {
-                  users.remove(users[index]);
-                }
+
                 return Container(
                   decoration: BoxDecoration(color: Colors.white),
                   child: Container(

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class myTextPage extends StatefulWidget {
-  const myTextPage({super.key});
+import 'models/User.dart';
 
-  @override
-  State<myTextPage> createState() => _myTextPageState();
-}
+class myTextPage extends StatelessWidget {
+  myTextPage({super.key, required this.users});
 
-class _myTextPageState extends State<myTextPage> {
+  final List<User> users;
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,9 +133,19 @@ class _myTextPageState extends State<myTextPage> {
             ],
           ),
           Expanded(
-            child: ListView(
-              children: [
-                Container(
+            child: ListView.separated(
+              itemCount: users.length,
+              separatorBuilder: (context, index) {
+                return Container(
+                  margin:
+                      EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
+                  height: 1,
+                  color: Colors.black38,
+                );
+              },
+              itemBuilder: (context, index) {
+                User user = users[index];
+                return Container(
                   decoration: BoxDecoration(color: Colors.white),
                   child: Container(
                     margin: EdgeInsets.only(left: 20, right: 20),
@@ -145,7 +155,7 @@ class _myTextPageState extends State<myTextPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Borem ipsum ",
+                              user.title,
                               style: TextStyle(
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.bold,
@@ -159,7 +169,7 @@ class _myTextPageState extends State<myTextPage> {
                             Container(
                               margin: EdgeInsets.only(bottom: 10),
                               child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
+                                user.content,
                                 style: TextStyle(
                                     fontFamily: "Poppins",
                                     fontWeight: FontWeight.normal,
@@ -177,7 +187,7 @@ class _myTextPageState extends State<myTextPage> {
                                   child:
                                       Image.asset("assets/images/profile.jpg"),
                                 ),
-                                Text("Profil İsmi"),
+                                Text(user.name + " " + user.surname),
                               ],
                             ),
                             Icon(Icons.heart_broken_rounded),
@@ -186,8 +196,8 @@ class _myTextPageState extends State<myTextPage> {
                       ],
                     ),
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ]));

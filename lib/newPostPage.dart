@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'models/User.dart';
 
+// ignore: must_be_immutable
 class newPostPage extends StatelessWidget {
   final Function(User) addPost;
+
   newPostPage({super.key, required this.addPost});
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -152,9 +154,10 @@ class newPostPage extends StatelessWidget {
                         String soyisim = "Güney";
                         String title = titleController.text;
                         String content = contentController.text;
-                        User user = User(
-                            "1", isim, soyisim, title, content, ["comment"]);
+                        User user = User("1", isim, soyisim, title, content,
+                            ["comment"], 0, false);
                         addPost(user);
+
                         Navigator.pop(context);
                       },
                     )

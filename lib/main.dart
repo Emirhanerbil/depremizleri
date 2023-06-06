@@ -20,16 +20,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<User> users = [];
+  List<User> users = [
+    User("id", "name", "surname", "title", "content", ["comments"], 0, false)
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => Home(),
+        "/": (context) => landing(),
         "/home": (context) => Home(),
-        "/profile": (context) => ProfilePage(),
-        "/text": (context) => myTextPage(),
-        "/newPost": (context) => newPostPage(addPost: addPost)
+        "/profile": (context) => ProfilePage(users: users),
+        "/text": (context) => myTextPage(
+              users: [],
+            ),
+        "/newPost": (context) => newPostPage(
+              addPost: addPost,
+            )
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/post') {
@@ -38,6 +44,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context) => PostPage(post: args['post']),
           );
         }
+        return null;
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.grey),
@@ -45,6 +52,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   void addPost(User user) {
+    setState(() {
+      users.add(user);
+    });
+  }
+
+  void addProfile(User user) {
     setState(() {
       users.add(user);
     });

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'models/User.dart';
+
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  ProfilePage({
+    super.key,
+    required this.users,
+  });
+  final List<User> users;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -10,6 +16,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 20), child: Text("12 Yazı"))
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(widget.users.length.toString() + " Yazı"))
             ]),
           ),
           SizedBox(height: 10),
@@ -139,270 +147,75 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           SizedBox(height: 10),
-          Expanded(
-            child: ListView(
-              children: [
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
+          Container(
+            height: 300,
+            child: Expanded(
+              child: ListView.separated(
+                itemCount: widget.users.length,
+                separatorBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                        left: 30, right: 30, bottom: 10, top: 10),
+                    height: 1,
+                    color: Colors.black38,
+                  );
+                },
+                itemBuilder: (context, index) {
+                  User user = widget.users[index];
+                  return Container(
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                user.title,
                                 style: TextStyle(
                                     fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
                               ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.jpg"),
+                              Icon(Icons.arrow_right_sharp)
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  user.content,
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 15),
                                 ),
-                                Text("Profil İsmi"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    child: Image.asset(
+                                        "assets/images/profile.jpg"),
+                                  ),
+                                  Text(user.name + " " + user.surname),
+                                ],
                               ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.jpg"),
-                                ),
-                                Text("Profil İsmi"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
+                              Icon(Icons.heart_broken_rounded),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.jpg"),
-                                ),
-                                Text("Profil İsmi"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.jpg"),
-                                ),
-                                Text("Profil İsmi"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Borem ipsum ",
-                              style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Icon(Icons.arrow_right_sharp)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                "Torem ipsum dolor sit amet consectetur borem...",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 15),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/profile.jpg"),
-                                ),
-                                Text("Profil İsmi"),
-                              ],
-                            ),
-                            Icon(Icons.heart_broken_rounded),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
           ),
         ]));

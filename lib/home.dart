@@ -1,5 +1,7 @@
+import 'package:depremizleri/myTextPage.dart';
 import 'package:depremizleri/newPostPage.dart';
 import 'package:depremizleri/postPage.dart';
+import 'package:depremizleri/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +19,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   List<User> users = [
-    User("1", "Ezgi", "Güneş", "Örnek Başlık", "Örnek İçerik", ["comment"])
+    User("1", "Ezgi", "Güneş", "Örnek Başlık", "Örnek İçerik",
+        ["comment", "asdsad", "dasd", "asdsa"], 0, false)
   ];
 
   @override
@@ -29,12 +32,22 @@ class _HomeState extends State<Home> {
           destinations: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/text");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => myTextPage(users: users),
+                    ),
+                  );
                 },
                 icon: Icon(Icons.text_snippet)),
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/newPost");
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => newPostPage(
+                                addPost: addPost,
+                              )));
                 },
                 icon: Icon(Icons.add)),
             IconButton(
@@ -46,7 +59,12 @@ class _HomeState extends State<Home> {
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                Navigator.pushNamed(context, "/profile");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfilePage(users: users),
+                  ),
+                );
               },
             )
           ],
@@ -124,8 +142,9 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                   context,
                                   CupertinoPageRoute(
-                                      builder: (context) =>
-                                          newPostPage(addPost: addPost)));
+                                      builder: (context) => newPostPage(
+                                            addPost: addPost,
+                                          )));
                             },
                             icon: Icon(Icons.add))
                       ],
@@ -275,6 +294,12 @@ class _HomeState extends State<Home> {
   }
 
   void addPost(User user) {
+    setState(() {
+      users.add(user);
+    });
+  }
+
+  void addProfile(User user) {
     setState(() {
       users.add(user);
     });

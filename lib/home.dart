@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   List<User> users = [
-    User("1", "Ezgi", "Güneş", "Örnek Başlık", "Örnek İçerik",
+    User("1", "Ezgi", "Güney", "Örnek Başlık", "Örnek İçerik",
         ["comment", "asdsad", "dasd", "asdsa"], 0, false)
   ];
 

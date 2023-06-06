@@ -154,8 +154,8 @@ class newPostPage extends StatelessWidget {
                         String soyisim = "Güney";
                         String title = titleController.text;
                         String content = contentController.text;
-                        User user = User("1", isim, soyisim, title, content,
-                            ["comment"], 0, false);
+                        User user = User(
+                            "1", isim, soyisim, title, content, [], 0, false);
                         addPost(user);
 
                         Navigator.pop(context);

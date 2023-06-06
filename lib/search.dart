@@ -3,33 +3,35 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'models/User.dart';
 
-class ProfilePage extends StatefulWidget {
-  ProfilePage({
-    super.key,
-    required this.users,
-  });
+class Search extends StatefulWidget {
+  Search({super.key, required this.users, required this.arama});
+
+  final String arama;
+
   final List<User> users;
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<Search> createState() => _SearchState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _SearchState extends State<Search> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
         bottomNavigationBar: NavigationBar(
             height: 57,
             selectedIndex: 3,
             destinations: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/text");
+                    Navigator.pushNamed(
+                      context,
+                      "/text",
+                    );
                   },
-                  icon: Icon(Icons.text_snippet)),
+                  icon: Icon(Icons.text_snippet, color: Colors.white)),
               IconButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/newPost");
@@ -42,14 +44,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.person, color: Colors.white),
+                icon: Icon(Icons.person),
                 onPressed: () {
                   Navigator.pushNamed(context, "/profile");
                 },
               )
             ],
             backgroundColor: Color(0XFFE3E7DF)),
-        backgroundColor: Color(0XFFE3E7DF),
         drawer: Drawer(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -100,10 +101,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ]),
         ),
         body: Column(children: [
-          Container(
-            color: Color(0xFfFF969C),
-            height: 300,
-            child: Column(children: [
+          Column(
+            children: [
               Stack(
                 children: [
                   SvgPicture.asset("assets/images/shapeLeftTop.svg"),
@@ -117,51 +116,42 @@ class _ProfilePageState extends State<ProfilePage> {
                             icon: Icon(Icons.menu)),
                         Container(
                             margin: EdgeInsets.only(right: 30, left: 30),
-                            child: mainText("Profil")),
+                            child: mainText("Yazılarım")),
                         IconButton(
                             onPressed: () {}, icon: Icon(Icons.notifications))
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
-              Center(
-                child: CircleAvatar(
-                  radius: 50,
-                  child: Image.asset("assets/images/profile.png"),
-                ),
-              ),
               Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Text(widget.users.length.toString() + " Yazı"))
-            ]),
+                padding: EdgeInsets.only(left: 15),
+                width: 313,
+                height: 50,
+                child: Row(children: [
+                  Icon(Icons.search),
+                  SizedBox(width: 10),
+                  Text("Ara")
+                ]),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white),
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                categoryContainer("Yazılarım", Color(0xffFF969C)),
-                categoryContainer("Cevaplarım", Colors.white)
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 300,
-            child: Expanded(
-              child: ListView.separated(
-                itemCount: widget.users.length,
-                separatorBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(
-                        left: 30, right: 30, bottom: 10, top: 10),
-                    height: 1,
-                    color: Colors.black38,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  User user = widget.users[index];
+          Expanded(
+            child: ListView.separated(
+              itemCount: widget.users.length,
+              separatorBuilder: (context, index) {
+                return Container(
+                  margin:
+                      EdgeInsets.only(left: 30, right: 30, bottom: 10, top: 10),
+                  height: 1,
+                  color: Colors.black38,
+                );
+              },
+              itemBuilder: (context, index) {
+                if (widget.users[index].content.contains(widget.arama)) {
                   return Container(
                     decoration: BoxDecoration(color: Colors.white),
                     child: Container(
@@ -172,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                user.title,
+                                widget.users[index].title,
                                 style: TextStyle(
                                     fontFamily: "Poppins",
                                     fontWeight: FontWeight.bold,
@@ -186,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: Text(
-                                  user.content,
+                                  widget.users[index].content,
                                   style: TextStyle(
                                       fontFamily: "Poppins",
                                       fontWeight: FontWeight.normal,
@@ -204,8 +194,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: Image.asset(
                                         "assets/images/profile.png"),
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(user.name + " " + user.surname),
+                                  Text(widget.users[index].name +
+                                      " " +
+                                      widget.users[index].surname),
                                 ],
                               ),
                               Icon(Icons.heart_broken_rounded),
@@ -215,32 +206,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   );
-                },
-              ),
+                } else {
+                  return Container(
+                    height: 100,
+                    color: Colors.white,
+                  );
+                }
+              },
             ),
           ),
         ]));
   }
 
-  Text mainText(String text) {
-    return Text(text,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.w800));
-  }
-
-  void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
-  }
-
-  Container categoryContainer(String text, Color choosencolor) {
+  Container categoryContainer(String text) {
     return Container(
       alignment: Alignment.center,
       height: 25,
       width: 95,
-      decoration: BoxDecoration(shape: BoxShape.rectangle, color: choosencolor),
+      decoration:
+          const BoxDecoration(shape: BoxShape.rectangle, color: Colors.white),
       child: Text(
         text,
         style: const TextStyle(
@@ -251,5 +235,18 @@ class _ProfilePageState extends State<ProfilePage> {
         textAlign: TextAlign.center,
       ),
     );
+  }
+
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
+  }
+
+  Text mainText(String text) {
+    return Text(text,
+        style: TextStyle(
+            color: Color(0XFFFF6F77),
+            fontSize: 20,
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.w800));
   }
 }

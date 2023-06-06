@@ -67,7 +67,7 @@ class landing extends StatelessWidget {
                 margin: EdgeInsets.only(top: 44),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/home");
+                    Navigator.pushNamed(context, "/loginPage");
                   },
                   child: Text(
                     "Başlayın",

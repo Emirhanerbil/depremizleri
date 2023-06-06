@@ -1,3 +1,4 @@
+import 'package:depremizleri/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,6 +8,7 @@ class myTextPage extends StatelessWidget {
   myTextPage({super.key, required this.users});
 
   final List<User> users;
+  String arama = "";
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -118,17 +120,31 @@ class myTextPage extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(left: 15),
-                width: 313,
-                height: 50,
-                child: Row(children: [
-                  Icon(Icons.search),
-                  SizedBox(width: 10),
-                  Text("Ara")
-                ]),
+                margin: EdgeInsets.only(top: 30),
+                width: 300,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white),
+                    color: Colors.white,
+                    border: Border.all(color: Colors.white)),
+                child: TextField(
+                  onSubmitted: (value) {
+                    arama = value;
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Search(
+                            arama: arama,
+                            users: users,
+                          ),
+                        ));
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Ara",
+                    prefixIcon: Icon(Icons.search),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 10, top: 13),
+                  ),
+                ),
               ),
             ],
           ),
@@ -145,6 +161,9 @@ class myTextPage extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 User user = users[index];
+                if (!users[index].content.contains(arama)) {
+                  users.remove(users[index]);
+                }
                 return Container(
                   decoration: BoxDecoration(color: Colors.white),
                   child: Container(
@@ -185,8 +204,9 @@ class myTextPage extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   child:
-                                      Image.asset("assets/images/profile.jpg"),
+                                      Image.asset("assets/images/profile.png"),
                                 ),
+                                SizedBox(width: 10),
                                 Text(user.name + " " + user.surname),
                               ],
                             ),
